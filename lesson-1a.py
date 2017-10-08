@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 path = 'data\ex1data1.txt'
-data1 = pd.read_csv(path, header=None, names=['area', 'price'])
+data = pd.read_csv(path, header=None, names=['area', 'price'])
 
 fig, ax = plt.subplots(figsize=(12, 8))
-ax.scatter(data1.area,
-           data1.price,
+ax.scatter(data.area,
+           data.price,
            alpha=0.5,
            c='r',
            edgecolor='black')
@@ -39,13 +39,13 @@ def gradient_descent(theta, x, y, alpha, niter):
 
 
 # Adding constant column
-data1.insert(0, 'const', 1)
+data.insert(0, 'const', 1)
 # data1.insert(2, 'size_sqrt', np.power(data1.area, 2))
 
 # Set X and y. Transform to numpy arrays
-cols = data1.shape[1]
-X = np.array(data1.iloc[:, 0:cols-1])
-y = np.array(data1.iloc[:, cols-1:cols])
+cols = data.shape[1]
+X = np.array(data.iloc[:, 0:cols - 1])
+y = np.array(data.iloc[:, cols - 1:cols])
 
 # Initialize for gradient descent
 theta = np.zeros([X.shape[1], 1])
@@ -62,17 +62,18 @@ ax.set_title('Error vs. Training Epoch')
 plt.show()
 
 
-x = np.linspace(data1.area.min(), data1.area.max(), 100)
+x = np.linspace(data.area.min(), data.area.max(), 100)
 f = theta[0, 0] + theta[1, 0] * x
 
 # Line fitting
 fig, ax = plt.subplots(figsize=(12, 8))
-ax.plot(x, f, c='b')
-ax.scatter(data1.area,
-           data1.price,
+ax.plot(x, f, c='b', label='Prediction')
+ax.scatter(data.area,
+           data.price,
            alpha=0.5,
            c='r',
-           edgecolor='black')
+           edgecolor='black', label='Training data')
+ax.legend(loc=2)
 ax.set_xlabel('Area')
 ax.set_ylabel('Price')
 ax.set_title('Area vs Price')
