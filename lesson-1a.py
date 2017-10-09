@@ -1,4 +1,4 @@
-# Machine Learning Online Class - Exercise 1: Linear Regression
+# Machine Learning Online Class - Lesson 1a: Linear Regression
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt

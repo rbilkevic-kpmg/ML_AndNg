@@ -1,3 +1,4 @@
+# Machine Learning Online Class - Lesson 1b: Multivariate Linear Regression
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
