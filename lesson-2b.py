@@ -8,6 +8,7 @@ path = 'data/ex2data2.txt'
 data = pd.read_csv(path, header=None, names=['test1', 'test2', 'accepted'])
 labels = {0: 'Not Accepted', 1: 'Accepted'}
 
+
 # fig, ax = plt.subplots(figsize=(8, 8))
 # groups = data.groupby('accepted')
 # for name, group in groups:
@@ -36,8 +37,8 @@ def cost_function(theta, x, y, lmb):
     term_1 = -np.dot(y.T, np.log(h_x))
     term_2 = -np.dot((1 - y).T, np.log(1 - h_x))
 
-    adj = lmb/2 * np.dot(theta_tmp.T, theta_tmp)
-    return 1/m * (term_1 + term_2 + adj)
+    adj = lmb / 2 * np.dot(theta_tmp.T, theta_tmp)
+    return 1 / m * (term_1 + term_2 + adj)
 
 
 def gradient(theta, x, y, lmb):
@@ -47,8 +48,8 @@ def gradient(theta, x, y, lmb):
     theta_tmp[0] = 0
 
     errors = h_x - y
-    grad = 1/m * np.dot(x.T, errors)
-    adj = lmb/m * theta_tmp
+    grad = 1 / m * np.dot(x.T, errors)
+    adj = lmb / m * theta_tmp
 
     return grad.T + adj.T
 
@@ -56,7 +57,7 @@ def gradient(theta, x, y, lmb):
 def map_feature(df, power):
     for i in range(1, power + 1):
         for j in range(0, i + 1):
-            df['F_{}{}'.format(i-j, j)] = np.power(df['test1'], i-j) * np.power(df['test2'], j)
+            df['F_{}{}'.format(i - j, j)] = np.power(df['test1'], i - j) * np.power(df['test2'], j)
     df.drop('test1', axis=1, inplace=True)
     df.drop('test2', axis=1, inplace=True)
     return df
@@ -99,11 +100,10 @@ def plot_decision_boundary(data, th, degree):
     plt.show()
 
 
-
 # Set X and y
 cols = data.shape[1]
-X = data.iloc[:, 0:cols-1]
-y = data.iloc[:, cols-1:cols]
+X = data.iloc[:, 0:cols - 1]
+y = data.iloc[:, cols - 1:cols]
 X.insert(0, 'const', 1)
 
 # Mapping additional features
@@ -118,7 +118,6 @@ y = np.array(y)
 theta = np.zeros([X.shape[1], 1])
 theta_reg_test = np.ones([X.shape[1], 1])
 lmb = 1
-
 
 # Cost of initial setup, no regularisation
 print('No-regularisation, all thetas equal to zero => J = {:.2f} (Expected J = 0.69)'.
@@ -135,6 +134,5 @@ theta = np.matrix(result[0]).T
 # Prediction accuracy
 predictions = predict(theta, X)
 print('\nTraining Accuracy: {}'.format(np.mean(predictions == y) * 100))
-
 
 plot_decision_boundary(data, theta, degree)
